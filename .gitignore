@@ -1,3 +1,4 @@
 # Project exclude paths
 /venv/
 /.idea/
+/polls_service/db.sqlite3

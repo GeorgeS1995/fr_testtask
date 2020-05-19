@@ -62,7 +62,7 @@ class QuestionSerializer(serializers.HyperlinkedModelSerializer):
         return instance
 
     def create(self, validated_data):
-        poll = self.context['request'].parser_context['poll']
+        poll = self.context['request'].parser_context['kwargs']['poll_pk']
         answers = validated_data.pop('answer', None)
         with transaction.atomic():
             q_inst = super(QuestionSerializer, self).create(validated_data)

@@ -26,11 +26,8 @@ class QuestionViewSet(ModelViewSet):
     serializer_class = QuestionSerializer
 
     def get_queryset(self):
-        return Question.objects.filter(isdelete=False, poll__in=[self.kwargs['poll_pk']]).order_by('id')
-
-    def get_serializer_context(self):
-        self.request.parser_context['poll'] = self.kwargs['poll_pk']
-        return super().get_serializer_context()
+        poll_id = self.request.parser_context['kwargs']['poll_pk']
+        return Question.objects.filter(isdelete=False, poll__id=poll_id).order_by('id')
 
     def perform_destroy(self, instance):
         instance.isdelete = True
